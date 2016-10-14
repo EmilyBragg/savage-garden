@@ -1,7 +1,7 @@
 CC = gcc
-
-poll_all:
-	$(CC) $(INCLUDES) -o poll_all.out poll_all.c -l sqlite3
+SRCS = poll_all.c database_interactions.c
+poll_all: 
+	$(CC) -o poll_all.out $(SRCS) -l sqlite3
 
 clean:
 	rm *.out
