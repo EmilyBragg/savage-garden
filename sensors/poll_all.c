@@ -1,41 +1,35 @@
 #include <stdio.h>
 #include <sqlite3.h>
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName){
-   int i;
-   for(i=0; i<argc; i++){
-      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-   }
-   printf("\n");
-   return 0;
-}
+#define SENSOR_DB "sensor.db"
 
-void initialize_db(void) {
+//SELECT id, datetime(ts, 'localtime') from SENSOR_READINGS;
+
+sqlite3* initialize_db(void) {
 	
 	sqlite3 *db;
 	char *errbuf = 0;
 	int rc;
 	
-	if (rc = sqlite3_open("sensor.db", &db)) {
+	if (rc = sqlite3_open(SENSOR_DB, &db)) {
 		printf("Couldn't open database: %s\n", sqlite3_errmsg(db));
 	} else {
 		printf("Opened sensor db.\n");
 	}
-	
 
-	char* sql = "CREATE TABLE SENSOR_READINGS(" \
+	
+	char* sql = "CREATE TABLE IF NOT EXISTS SENSOR_READINGS(" \
 		  "ID TEXT PRIMARY KEY NOT NULL," \
 		  "VALUE INT NOT NULL," \
 		  "TS DATETIME DEFAULT CURRENT_TIMESTAMP);";
 
-	if (sqlite3_exec(db, sql, callback, 0, &errbuf)) {
+	if (sqlite3_exec(db, sql, NULL, 0, &errbuf)) {
 		printf("Failed to create table: %s\n", errbuf);
 		sqlite3_free(errbuf);
 	} else {
 		printf("Created table\n");
 	}
-
-	sqlite3_close(db);
+	return db;
 
 };
 
@@ -43,8 +37,13 @@ void initialize_db(void) {
 
 //int connect(); 
 
+
 int main(void) {
-	initialize_db();
+	sqlite3* db = initialize_db();
+	char* errbuf = 0;	
+	sqlite3_exec(db, "insert into SENSOR_READINGS(ID, VALUE) VALUES('test_sensor', 5556);", NULL, 0, &errbuf);
+
+	sqlite3_close(db);
 	return 0;	
 
 
