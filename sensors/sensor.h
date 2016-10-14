@@ -1,5 +1,10 @@
-#include <stdio>
-#include <stdlib>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct SensorReading{
+	float reading;
+	time_t timestamp;
+} SensorReading;
 
 class Sensor {
 	public:

@@ -14,9 +14,10 @@ sqlite3* initialize_db(void) {
 
 	
 	std::string sql = "CREATE TABLE IF NOT EXISTS SENSOR_READINGS(" \
-		  "ID TEXT PRIMARY KEY NOT NULL," \
+		  "ID TEXT NOT NULL," \
 		  "VALUE INT NOT NULL," \
-		  "TS DATETIME DEFAULT CURRENT_TIMESTAMP);";
+		  "TS DATETIME DEFAULT CURRENT_TIMESTAMP,"\
+		  "PRIMARY KEY (ID, VALUE));";
 
 	if (sqlite3_exec(db, sql.c_str(), NULL, 0, &errbuf)) {
 		printf("Failed to create table: %s\n", errbuf);
