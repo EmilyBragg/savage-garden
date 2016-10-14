@@ -1,0 +1,2 @@
+data_server(ds) will listen over a port (probably wifi connection).
+ds will be able to return the data for any sensor, for the specified time frame (within the range stored)
