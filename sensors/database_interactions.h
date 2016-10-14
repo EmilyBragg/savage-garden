@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string>
 #include <sqlite3.h>
 
 #define SENSOR_DB "sensor.db"
@@ -8,5 +9,5 @@
 sqlite3* initialize_db(void);
 
 
-void record(sqlite3* db, SensorType s, reading);
+void record(sqlite3* db, std::string s, float reading);
 
