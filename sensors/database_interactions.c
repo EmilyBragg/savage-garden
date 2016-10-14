@@ -26,3 +26,9 @@ sqlite3* initialize_db(void) {
 	return db;
 
 };
+
+void record(sqlite3* db, SensorID s, reading) {
+	
+
+
+};
