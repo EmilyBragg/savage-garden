@@ -6,8 +6,7 @@
 int main(void) {
 	sqlite3* db = initialize_db();
 	char* errbuf = 0;	
-	sqlite3_exec(db, "insert into SENSOR_READINGS(ID, VALUE) VALUES('test_sensor', 5556);", NULL, 0, &errbuf);
-
+	record(db, "test_sensor2", 456.35);
 	sqlite3_close(db);
 	return 0;	
 

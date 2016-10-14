@@ -28,8 +28,15 @@ sqlite3* initialize_db(void) {
 
 };
 
-void record(sqlite3* db, std::string s, float reading) {
-	
+void record(sqlite3* db, std::string sensor, float reading) {
+	char* errbuf = 0;
+	std::string query = "INSERT into SENSOR_READINGS(ID, VALUE) VALUES('" + sensor+ "'," + std::to_string(reading) + ");";
+	if (sqlite3_exec(db, query.c_str(), NULL, 0, &errbuf)) {
+		printf("%s\n", errbuf);
+		// error
+	} else {
+		// inserted values
+	}	
 
 
 };
